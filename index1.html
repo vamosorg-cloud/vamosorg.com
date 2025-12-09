@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAMOS Organizasyon & Yayıncılık</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- GENEL AYARLAR --- */
+        :root {
+            --primary-color: #FF6B6B;
+            --secondary-color: #333333;
+            --bg-light: #f9f9f9;
+            --text-color: #555;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; color: var(--text-color); line-height: 1.6; background-color: var(--white); }
+        h1, h2, h3, h4, h5 { font-family: 'Montserrat', sans-serif; color: var(--secondary-color); }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+        }
+        .btn:hover { background-color: transparent; color: var(--primary-color); }
+
+        /* --- HEADER & NAV --- */
+        header { background-color: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; padding: 10px 0; }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo img { height: 60px; width: auto; } /* Logo boyutu artırıldı */
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { font-weight: 600; font-size: 14px; text-transform: uppercase; color: var(--secondary-color); }
+        .nav-links a:hover { color: var(--primary-color); }
+
+        /* --- HERO --- */
+        #hero {
+            height: 85vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; text-align: center; color: var(--white);
+        }
+        #hero h1 { font-size: 3.5rem; margin-bottom: 20px; color: var(--white); }
+        #hero p { font-size: 1.2rem; margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto; }
+
+        /* --- BÖLÜMLER --- */
+        .section-padding { padding: 80px 0; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2.5rem; margin-bottom: 15px; position: relative; display: inline-block; }
+        .section-title h2::after { content: ''; width: 60px; height: 3px; background-color: var(--primary-color); position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); }
+
+        /* --- PORTFOLYO / REFERANSLAR (YENİ) --- */
+        #portfolio { background-color: var(--white); }
+        
+        .portfolio-category { margin-bottom: 60px; }
+        .category-title { font-size: 1.5rem; margin-bottom: 30px; border-left: 5px solid var(--primary-color); padding-left: 15px; color: #333; }
+
+        /* Grid Yapısı */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        /* Kart Tasarımı */
+        .work-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: 0.3s; }
+        .work-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        
+        .work-img { height: 220px; overflow: hidden; position: relative; }
+        .work-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .work-card:hover .work-img img { transform: scale(1.05); }
+        
+        .work-info { padding: 20px; }
+        .work-info h4 { font-size: 1.1rem; margin-bottom: 10px; }
+        .work-info p { font-size: 0.9rem; color: #777; margin-bottom: 0; }
+        .badge { font-size: 0.75rem; background: #eee; padding: 4px 10px; border-radius: 4px; display: inline-block; margin-bottom: 10px; color: #555; }
+
+        /* Kitaplar için özel boyutlandırma */
+        .book-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
+        .book-card .work-img { height: 300px; } /* Kitap dik format */
+        
+        /* --- DİĞER BÖLÜMLER (HİZMETLER VB.) --- */
+        #about { background-color: var(--bg-light); }
+        .about-content { display: flex; align-items: center; gap: 50px; }
+        .about-text { flex: 1; }
+        .about-image { flex: 1; } .about-image img { width: 100%; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+
+        #services { background-color: var(--white); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .service-card { background: var(--bg-light); padding: 40px; text-align: center; border-radius: 10px; transition: 0.3s; }
+        .service-card:hover { transform: translateY(-10px); background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .service-icon { font-size: 3rem; color: var(--primary-color); margin-bottom: 20px; }
+
+        #publishing-highlight { background-color: var(--secondary-color); color: var(--white); text-align: center; padding: 60px 20px; }
+        #publishing-highlight h2 { color: var(--primary-color); margin-bottom: 15px; }
+
+        /* --- İLETİŞİM --- */
+        #contact { background-color: var(--bg-light); }
+        .contact-container { display: flex; gap: 40px; }
+        .contact-info, .contact-form { flex: 1; }
+        .info-item { margin-bottom: 20px; display: flex; align-items: center; }
+        .info-item i { width: 40px; height: 40px; background-color: rgba(255, 107, 107, 0.1); color: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; }
+        form input, form textarea { width: 100%; padding: 15px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; }
+
+        footer { background-color: #222; color: #999; padding: 40px 0; text-align: center; }
+        .social-links a { color: var(--white); font-size: 1.2rem; margin: 0 10px; }
+        .social-links a:hover { color: var(--primary-color); }
+
+        @media (max-width: 768px) {
+            #hero h1 { font-size: 2.5rem; }
+            .about-content, .contact-container { flex-direction: column; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="#">
+                        <img src="logo.png" alt="VAMOS Organizasyon" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="logo-text" style="display:none; font-weight:bold; color:#FF6B6B;">VAMOS</span>
+                    </a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#hero">Ana Sayfa</a></li>
+                    <li><a href="#about">Hakkımızda</a></li>
+                    <li><a href="#services">Hizmetler</a></li>
+                    <li><a href="#portfolio">Neler Yaptık?</a></li>
+                    <li><a href="#contact">İletişim</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="container">
+            <h1>Sahneden Sayfalara,<br>Hayatın Her Rengi</h1>
+            <p>Şehrin en iyi konserlerinden, raflardaki en yeni kitaplara kadar...<br>VAMOS Organizasyon & Yayıncılık olarak kültür ve sanatı sizinle buluşturuyoruz.</p>
+            <a href="#portfolio" class="btn">İşlerimizi İnceleyin</a>
+            <a href="#contact" class="btn">Bizimle İletişime Geçin</a>
+        </div>
+    </section>
+
+    <section id="about" class="section-padding">
+        <div class="container">
+            <div class="section-title"><h2>Biz Kimiz?</h2></div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Tecrübe ve Tutku Bir Arada</h3>
+                    <p>Birkaç yıl önce, şehrin kültürel dinamizmine katkı sağlamak amacıyla çıktığımız bu yolda, sayısız konsere ve tiyatro etkinliğine imza attık. Organizasyon dünyasındaki başarımızı, profesyonel baskı ve matbaa çözümlerimizle perçinledik.</p>
+                    <br>
+                    <p>Şimdi ise vizyonumuzu genişletiyoruz! VAMOS ailesi olarak, kelimelerin gücüne inanıyor ve yayıncılık sektörüne güçlü bir giriş yapıyoruz. Hem sahnede hem de satırlarda yanınızdayız.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="VAMOS Ekibi">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="section-padding">
+        <div class="container">
+            <div class="section-title">
+                <h2>Neler Yaptık?</h2>
+                <p>Geçmişten bugüne imza attığımız organizasyonlar, tanıtım çalışmaları ve basıma hazırladığımız kitaplar.</p>
+            </div>
+
+            <div class="portfolio-category">
+                <h3 class="category-title"><i class="fas fa-theater-masks"></i> Sahne & Organizasyon</h3>
+                <div class="portfolio-grid">
+                    <div class="work-card">
+                        <div class="work-img">
+                            <img src="https://images.unsplash.com/photo-1503095392269-27528ca388ec?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Tiyatro">
+                        </div>
+                        <div class="work-info">
+                            <span class="badge">Tiyatro</span>
+                            <h4>Şehir Sahnesinde Hamlet</h4>
+                            <p>1200 izleyici kapasiteli salonda gerçekleştirdiğimiz, sezonun en çok konuşulan tiyatro organizasyonu.</p>
+                        </div>
+                    </div>
+                    <div class="work-card">
+                        <div class="work-img">
+                            <img src="https://images.unsplash.com/photo-1470229722913-7ea995968f55?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Konser">
+                        </div>
+                        <div class="work-info">
+                            <span class="badge">Konser</span>
+                            <h4>Yaz Sonu Akustik Gecesi</h4>
+                            <p>Açık hava amfisinde düzenlediğimiz, teknik altyapısı ve sahne yönetimi Vamos tarafından yapılan konser.</p>
+                        </div>
+                    </div>
+                    <div class="work-card">
+                        <div class="work-img">
+                            <img src="https://images.unsplash.com/photo-1585647347483-22b66260dfff?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Gösteri">
+                        </div>
+                        <div class="work-info">
+                            <span class="badge">Gösteri</span>
+                            <h4>Komedi Festivali Kapanışı</h4>
+                            <p>Ünlü komedyenlerin katılımıyla gerçekleşen organizasyonun tüm biletleme ve yer yönetimi süreçleri.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-category">
+                <h3 class="category-title"><i class="fas fa-bullhorn"></i> Tanıtım & Açık Hava (8 Proje)</h3>
+                <div class="portfolio-grid">
+                    <div class="work-card">
+                        <div class="work-img">
+                            <img src="https://images.unsplash.com/photo-1562654501-a0ccc0fc3fb1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Afiş">
+                        </div>
+                        <div class="work-info">
+                            <span class="badge">Açık Hava</span>
+                            <h4>Şehir Duvarları Afişleme</h4>
+                            <p>Şehrin en işlek 15 noktasında yapılan konser tanıtım afişlemesi.</p>
+                        </div>
+                    </div>
+                    <div class="work-card">
+                        <div class="work-img">
+                            <img src="https://images.unsplash.com/photo-1542204637-e67bc7d41e48?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="İç Mekan">
+                        </div>
+                        <div class="work-info">
+                            <span class="badge">İç Mekan</span>
+                            <h4>AVM & Kampüs Tanıtımları</h4>
+                            <p>Üniversite kampüsleri ve AVM içlerinde gerçekleştirilen stand ve görsel giydirme çalışmaları.</p>
+                        </div>
+                    </div>
+                    <div class="work-card">
+                        <div class="work-img">
+                            <img src="https://images.unsplash.com/photo-1626785774573-4b799312c95d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Broşür">
+                        </div>
+                        <div class="work-info">
+                            <span class="badge">Matbaa</span>
+                            <h4>Festival Katalog Basımı</h4>
+                            <p>Kültür Sanat Festivali için hazırlanan 50 sayfalık özel baskı katalog ve dağıtımı.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-category">
+                <h3 class="category-title"><i class="fas fa-book"></i> Yayına Hazırlanan Kitaplar</h3>
+                <p style="margin-bottom:20px; color:#666;">Titizlikle hazırlanmasını sağladığımız, editöryal süreçleri tamamlanan ve okuyucuya sunulan eserlerimizden seçkiler.</p>
+                
+                <div class="book-grid">
+
+                    <div class="work-card book-card">
+                        <div class="work-img">
+                            <img src="vallaury.jpg">
+                        </div>
+                        <div class="work-info">
+                            <span class="badge" style="background:#fce4ec; color:#ef6c00">Araştırma</span>
+                            <h4>Geç Osmanlı Mimarlığında Alexandre Vallaury ve Eklektizm</h4>
+                            <p>Yazar: Seda Kula; Yayıncı: İBB Kütüphane ve Müzeler Müdürlüğü, İstanbul, 2024.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="work-card book-card">
+                        <div class="work-img">
+                            <img src="yahya.jpg" alt="Kitap Kapağı">
+                        </div>
+                        <div class="work-info">
+                            <span class="badge" style="background:#fce4ec; color:#ef6c00">Araştırma</span>
+                            <h4>Beşiktaşlı Yahyâ Efendi Menâkıbnâmesi</h4>
+                            <p>Yazar: Mehmed Dâî; Yayına Hazırlayan: Emine Gümüş; Yayıncı: İBB Kütüphane ve Müzeler Müdürlüğü, İstanbul, 2023.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="work-card book-card">
+                        <div class="work-img">
+                            <img src="İhsaiyatkapak.jpg" alt="İstanbul Beldesi İhsaiyat Mecmuası [1328/1912]">
+                        </div>
+                        <div class="work-info">
+                            <span class="badge" style="background:#fff3e0; color:#388e3c">Süreli Yayın</span>
+                            <h4>İstanbul Beldesi İhsaiyat Mecmuası [1328/1912]</h4>
+                            <p>Hazırlayan: İstanbul Şehremaneti İstatistik Şubesi; Yayına Hazırlayanlar: Bülent Bilmez v.d.; Yayıncı: İBB Kütüphane ve Müzeler Müdürlüğü, İstanbul, 2023.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="work-card book-card">
+                        <div class="work-img">
+                            <img src="şehremaneti13.jpg" alt="İstanbul Şehremaneti Mecmuası, Sayı 13 (Eylül 1341/1925)">
+                        </div>
+                        <div class="work-info">
+                            <span class="badge" style="background:#fff3e0; color:#388e3c">Süreli Yayın</span>
+                            <h4>İstanbul Şehremaneti Mecmuası, Sayı 13 (Eylül 1341/1925)</h4>
+                            <p>Hazırlayan: İstanbul Şehremaneti; Yayına Hazırlayanlar: Bülent Bilmez v.d.; Yayıncı: İBB Kütüphane ve Müzeler Müdürlüğü, İstanbul, 2023.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="work-card book-card">
+                        <div class="work-img">
+                            <img src="şehremaneti14.jpg" alt="İstanbul Şehremaneti Mecmuası, Sayı 14 (Eylül 1341/1925)">
+                        </div>
+                        <div class="work-info">
+                            <span class="badge" style="background:#fff3e0; color:#388e3c">Süreli Yayın</span>
+                            <h4>İstanbul Şehremaneti Mecmuası, Sayı 14 (Eylül 1341/1925)</h4>
+                            <p>Hazırlayan: İstanbul Şehremaneti; Yayına Hazırlayanlar: Bülent Bilmez v.d.; Yayıncı: İBB Kütüphane ve Müzeler Müdürlüğü, İstanbul, 2023.</p>
+                        </div>
+                    </div>
+
+                    <div class="work-card book-card">
+                        <div class="work-img">
+                            <img src="şehremaneti15.jpg" alt="İstanbul Şehremaneti Mecmuası, Sayı 15 (Eylül 1341/1925)">
+                        </div>
+                        <div class="work-info">
+                            <span class="badge" style="background:#fff3e0; color:#388e3c">Süreli Yayın</span>
+                            <h4>İstanbul Şehremaneti Mecmuası, Sayı 15 (Eylül 1341/1925)</h4>
+                            <p>Hazırlayan: İstanbul Şehremaneti; Yayına Hazırlayanlar: Bülent Bilmez v.d.; Yayıncı: İBB Kütüphane ve Müzeler Müdürlüğü, İstanbul, 2023.</p>
+                        </div>
+                    </div>
+                       
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="services" class="section-padding">
+        <div class="container">
+            <div class="section-title">
+                <h2>Faaliyet Alanlarımız</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-music service-icon"></i>
+                    <h3>Organizasyon</h3>
+                    <p>Konser, tiyatro ve festival yönetimi.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-print service-icon"></i>
+                    <h3>Matbaa & Tanıtım</h3>
+                    <p>Afiş, billboard ve promosyon ürünleri.</p>
+                </div>
+                <div class="service-card" style="border: 2px solid var(--primary-color);">
+                    <i class="fas fa-book-open service-icon"></i>
+                    <h3>Yayıncılık</h3>
+                    <p>Kitap basımı, editörlük ve dağıtım.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="publishing-highlight">
+        <div class="container">
+            <h2>Yayıncılık Dünyasındayız!</h2>
+            <p>Edebiyat dünyasına yeni eserler kazandırmak için çalışıyoruz.</p>
+        </div>
+    </section>
+
+    <section id="contact" class="section-padding">
+        <div class="container">
+            <div class="section-title"><h2>İletişim</h2></div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div><h4>Adres</h4><p>Merkez Mah. Kültür Cad. No:123</p></div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div><h4>E-posta</h4><p>info@vamosorg.com</p></div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form action="https://formspree.io/f/SIZIN_KODUNUZ" method="POST">
+                        <input type="text" name="ad_soyad" placeholder="Adınız Soyadınız" required>
+                        <input type="email" name="_replyto" placeholder="E-posta Adresiniz" required>
+                        <input type="text" name="konu" placeholder="Konu" required>
+                        <textarea name="mesaj" rows="5" placeholder="Mesajınız..." required></textarea>
+                        <button type="submit" class="btn">Gönder</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p style="margin-top:20px;">&copy; 2026 VAMOS Organizasyon & Yayıncılık.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
